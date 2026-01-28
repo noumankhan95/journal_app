@@ -8,7 +8,7 @@ pub struct IntitJournal<'info> {
     pub signer: Signer<'info>,
     #[account(init,payer=signer,space=8+Journal::INIT_SPACE,seeds=[b"journal",signer.key().as_ref()],bump)]
     pub journal: Account<'info, Journal>,
-    #[account(init_if_needed,payer=signer,space=8+Counter::INIT_SPACE)]
+    #[account(init_if_needed,payer=signer,space=8+Counter::INIT_SPACE,seeds=[b"counter",signer.key().as_ref()],bump)]
     pub counter: Account<'info, Counter>,
     pub system_program: Program<'info, System>,
 }

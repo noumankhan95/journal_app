@@ -8,7 +8,7 @@ pub struct CreateNote<'info> {
     pub signer: Signer<'info>,
     #[account(mut,constraint=journal.owner==signer.key())]
     pub journal: Account<'info, Journal>,
-    #[account(init,payer=signer,space=8+Note::INIT_SPACE,seeds=[b"note",signer.key().as_ref(),&[counter.val.try_into().unwrap()]],bump)]
+    #[account(init,payer=signer,space=8+Note::INIT_SPACE,seeds=[b"note",signer.key().as_ref(),counter.val.to_le_bytes().as_ref()],bump)]
     pub note: Account<'info, Note>,
     #[account(mut,constraint=signer.key()==counter.owner)]
     pub counter: Account<'info, Counter>,
@@ -21,6 +21,7 @@ pub fn create_note(ctx: Context<CreateNote>, contents: String, title: String) ->
     note.journal_key = ctx.accounts.journal.key();
     let counter = &mut ctx.accounts.counter;
     let counter_val = counter.val;
+    counter.val = counter_val + 1;
     note.note_id = counter_val;
     note.owner = ctx.accounts.signer.key();
     note.title = title;

@@ -11,8 +11,8 @@ pub struct ReadNote<'info> {
     pub system_program: Program<'info, System>,
 }
 
-pub fn read_note(ctx: Context<ReadNote>, note_id: u8) -> Result<(&str, &str)> {
+pub fn read_note(ctx: Context<ReadNote>, note_id: u8) -> Result<()> {
     let note = &ctx.accounts.note_account;
-
-    Ok((&note.title, &note.contents))
+    msg!("{}", note.contents);
+    Ok(())
 }
