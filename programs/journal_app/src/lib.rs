@@ -14,7 +14,7 @@ pub mod journal_app {
     }
     pub fn update_journal(
         ctx: Context<UpdateNote>,
-        note_id: u8,
+        note_id: u64,
         title: String,
         contents: String,
     ) -> Result<()> {
@@ -22,7 +22,7 @@ pub mod journal_app {
         Ok(())
     }
 
-    pub fn delete_from_journal(ctx: Context<DeleteNote>, note_id: u8) -> Result<()> {
+    pub fn delete_from_journal(ctx: Context<DeleteNote>, note_id: u64) -> Result<()> {
         delete_note(ctx, note_id)?;
         Ok(())
     }

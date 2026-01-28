@@ -17,6 +17,7 @@ pub fn initialize_journal(ctx: Context<IntitJournal>, name: String) -> Result<()
     let journal_account = &mut ctx.accounts.journal;
     let counter_val = ctx.accounts.counter.val;
     ctx.accounts.counter.val = counter_val + 1;
+    ctx.accounts.counter.owner = ctx.accounts.signer.key();
     journal_account.name = name;
     journal_account.owner = ctx.accounts.signer.key();
     Ok(())

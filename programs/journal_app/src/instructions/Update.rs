@@ -3,7 +3,7 @@ use anchor_lang::prelude::*;
 use crate::state::Note;
 
 #[derive(Accounts)]
-#[instruction(note_id:u8)]
+#[instruction(note_id:u64)]
 pub struct UpdateNote<'info> {
     #[account(mut)]
     pub signer: Signer<'info>,
@@ -14,7 +14,7 @@ pub struct UpdateNote<'info> {
 
 pub fn update_note(
     ctx: Context<UpdateNote>,
-    note_id: u8,
+    note_id: u64,
     title: String,
     contents: String,
 ) -> Result<()> {
